@@ -164,7 +164,7 @@ For original dataset
 * F1 Score : 0.3652
 
 ![Tran vs Test acc Neural Network - Original Dataset](images/neural_network_performance/neural_network_train_vs_val_acc_original_dataset.png)
-![Confusion Matrix Random forest - Original Dataset](images/neural_network_performance/neural_network_train_vs_val_acc_original_dataset.png)
+![Confusion Matrix Random forest - Original Dataset](images/neural_network_performance/neural_network_confusion_matrix_original_dataset.png)
 
 The Neural Network showed lower performance than Random Forest but maintained similar training and testing results, indicating stable generalization.
 
