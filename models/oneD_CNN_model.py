@@ -15,7 +15,7 @@ import tensorflow as tf
 def create_model(
     num_classes: int,
     num_attributes: int = 11,
-    dropout_rate: float = 0.30,
+    dropout_rate: float = 0.3,
 ) -> tf.keras.Model:
     """
     Create the 1D-CNN model used for wine quality classification.
@@ -49,7 +49,7 @@ def create_model(
     # 1D-CNN block: captures local relationships between neighboring attributes.
     model.add(tf.keras.layers.Conv1D(
         filters=32,
-        kernel_size=3,
+        kernel_size=5,
         padding="same",
         activation="relu",
         name="conv1d_block"
@@ -68,28 +68,34 @@ def create_model(
     # representation size while preserving enough capacity for classification
 
     # Dense layer
-    model.add(tf.keras.layers.Dense(128, name="dense_128"))
-    # Batch Normalization and Dropout after the first three dense layers to improve generalization.
-    model.add(tf.keras.layers.BatchNormalization(name="batch_norm_128"))
-    model.add(tf.keras.layers.Activation("relu", name="relu_128"))
-    model.add(tf.keras.layers.Dropout(dropout_rate, name="dropout_128"))
-
-    # Dense layer
     model.add(tf.keras.layers.Dense(64, name="dense_64"))
-    # Batch Normalization and Dropout
+    # Batch Normalization and Dropout after the first three dense layers to improve generalization.
     model.add(tf.keras.layers.BatchNormalization(name="batch_norm_64"))
+    # ReLU
     model.add(tf.keras.layers.Activation("relu", name="relu_64"))
+    # Dropout
     model.add(tf.keras.layers.Dropout(dropout_rate, name="dropout_64"))
 
     # Dense layer
     model.add(tf.keras.layers.Dense(32, name="dense_32"))
     # Batch Normalization and Dropout
     model.add(tf.keras.layers.BatchNormalization(name="batch_norm_32"))
+    # ReLU
     model.add(tf.keras.layers.Activation("relu", name="relu_32"))
+    # Dropout
     model.add(tf.keras.layers.Dropout(dropout_rate, name="dropout_32"))
 
+    # Dense layer
+    model.add(tf.keras.layers.Dense(16, name="dense_16"))
+    # Batch Normalization and Dropout
+    model.add(tf.keras.layers.BatchNormalization(name="batch_norm_16"))
+    # ReLU
+    model.add(tf.keras.layers.Activation("relu", name="relu_16"))
+    # Dropout
+    model.add(tf.keras.layers.Dropout(dropout_rate, name="dropout_16"))
+
     # Fourth and finaldense layer before softmax
-    model.add(tf.keras.layers.Dense(16, activation="relu", name="dense_16"))
+    model.add(tf.keras.layers.Dense(8, activation="relu", name="dense_8"))
 
     # Softmax output layer for multi-class classification.
     model.add(tf.keras.layers.Dense(num_classes, activation="softmax", name="quality_output"))
